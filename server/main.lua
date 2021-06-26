@@ -1,6 +1,4 @@
 ESX = nil
-local connectedPlayers = {}
-
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterServerEvent("scoreboard:show")
@@ -32,5 +30,17 @@ AddEventHandler("scoreboard:show", function()
 			pelaaja = pelaaja +1
 		end
 	end
-	TriggerClientEvent("esx:showNotification", src, "Ensihoito: ~b~"..lanssi.."\n~s~Poliisi: ~b~"..poliisi.."\n~s~Mekaanikko: ~b~"..meksu.."\n~s~Taksi: ~b~"..jobless.."\n~s~Pelaajia: ~b~"..pelaaja)
+	SendInfo(src, lanssi, poliisi, meksu, jobless, pelaaja)
 end)
+
+
+function SendInfo(src, ems, cops, mechs, taxi, players)
+	if cops > 0 and cops < 5 then
+		cops = "+1"
+	elseif cops > 5 and cops < 8 then
+		cops = "+5"
+	elseif cops > 8 then
+		cops = "+8"
+	end
+	TriggerClientEvent("esx:showNotification", src, "Ensihoito: ~b~"..ems.."\n~s~Poliisi: ~b~"..cops.."\n~s~Mekaanikko: ~b~"..mechs.."\n~s~Taksi: ~b~"..taxi.."\n~s~Pelaajia: ~b~"..players)
+end
