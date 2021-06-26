@@ -10,12 +10,14 @@ local Keys = {
 	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }
 
+local WhenCanUseAgain = 10000
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if IsControlJustReleased(0, Keys['PAGEUP']) then
 			TriggerServerEvent("scoreboard:show")
-			Citizen.Wait(10000)
+			Citizen.Wait(WhenCanUseAgain) --Defined above, this is for the people who just spams the scoreboard to see police status
 		end
 	end
 end)
